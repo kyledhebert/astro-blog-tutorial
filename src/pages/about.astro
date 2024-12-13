@@ -1,14 +1,12 @@
 ---
-import "../styles/global.css";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const pageTitle = "About Me";
 const identity = {
   firstName: "Kyle",
   country: "United States",
   occupation: "Engineering Manager",
-  hobbies: ["reading, video games, tabletop games"],
+  hobbies: ["reading", "video games", "tabletop games"],
 };
 
 const skills = ["Web Development", "Technical Leadership", "Writing"];
@@ -21,65 +19,41 @@ const fontWeight = "bold";
 const textCase = "uppercase";
 ---
 
-<html lang="en">
-  <html lang="en">
-    <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width" />
-      <title>{pageTitle}</title>
-      <style define:vars={{ skillColor, fontWeight, textCase }}>
-        h1 {
-          color: purple;
-          font-size: 4rem;
-        }
-        .skill {
-          color: var(--skillColor);
-          font-weight: var(--fontWeight);
-          text-transform: var(--textCase);
-        }
-      </style>
-    </head>
-    <body>
-      <Header />
+<BaseLayout pageTitle={pageTitle}>
+  <style is:global define:vars={{ skillColor, fontWeight, textCase }}>
+    h1 {
+      color: purple;
+      font-size: 4rem;
+    }
+    .skill {
+      color: var(--skillColor);
+      font-weight: var(--fontWeight);
+      text-transform: var(--textCase);
+    }
+  </style>
+  <h2>A subheading like you've never seen</h2>
 
-      <h1>{pageTitle}</h1>
-      <h2>A subheading like you've never seen</h2>
-
-      <p>And what about this paragraph! Are you freaking kidding me!</p>
-      <p>Great content. So great.</p>
-      <p>Here are a few facts about me:</p>
-      <ul>
-        <li>My name is {identity.firstName}.</li>
-        <li>
-          I live in {identity.country} and I work as an {identity.occupation}
-        </li>
-        {
-          identity.hobbies.length >= 2 && (
-            <li>
-              {" "}
-              Two of my hobbies are: identity.hobbies[0] and{" "}
-              {identity.hobbies[1]}
-            </li>
-          )
-        }
-      </ul>
-      <p>My skills are:</p>
-      <ul>
-        {skills.map((skill) => <li class="skill">{skill}</li>)}
-      </ul>
-      {happy && <p>I am happy to be learning Astro!</p>}
-      {finished && <p>I finished this tutorial</p>}
-      {
-        goal === 3 ? (
-          <p>My goal is to finish in 3 days.</p>
-        ) : (
-          <p>My goal is not 3 days.</p>
-        )
-      }
-      <Footer />
-      <script>
-        import "../scripts/menu.js";
-      </script>
-    </body>
-  </html>
-</html>
+  <p>And what about this paragraph! Are you freaking kidding me!</p>
+  <p>Great content. So great.</p>
+  <p>Here are a few facts about me:</p>
+  <ul>
+    <li>My name is {identity.firstName}.</li>
+    <li>
+      I live in {identity.country} and I work as an {identity.occupation}
+    </li>
+    {identity.hobbies.length > 2 && <li>Two of my hobbies are {identity.hobbies[0]} and {identity.hobbies[1]}</li>}
+  </ul>
+  <p>My skills are:</p>
+  <ul>
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
+  {happy && <p>I am happy to be learning Astro!</p>}
+  {finished && <p>I finished this tutorial</p>}
+  {
+    goal === 3 ? (
+      <p>My goal is to finish in 3 days.</p>
+    ) : (
+      <p>My goal is not 3 days.</p>
+    )
+  }
+</BaseLayout>
